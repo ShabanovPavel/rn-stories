@@ -57,13 +57,13 @@ export default theme =>
 		title: {
 			fontSize: 24,
 			fontWeight: theme.simple.fontWeight.bold,
-			color: 'white',
+			color: theme.color.WHITE,
 		},
 		description: {
 			marginVertical: 20,
 			fontSize: 20,
 			lineHeight: 32,
-			color: 'white',
+			color: theme.color.WHITE,
 		},
 		progressView: {
 			flexDirection: 'row',
@@ -97,7 +97,10 @@ export default theme =>
 			left: 0,
 			right: 0,
 			bottom: 0,
-			height: height / 2,
+			height: (height / 5) * 3,
 		},
-		btnSize: {width: 123, height: 53},
+		btnSize: {
+			width: 123,
+			height: 53,
+		},
 	});

@@ -184,6 +184,10 @@ export default class StoryBlock extends Component {
 		this.setState({isLoadImage: false});
 	};
 
+	handleOpenInfo = item => () => {
+		Links.onLinking(item.urlDetailInfo);
+	};
+
 	render() {
 		// Log('!libStory/StoryBlock', this.props);
 		const {
@@ -193,8 +197,8 @@ export default class StoryBlock extends Component {
 			screenProps: {onClose, params},
 		} = this.props;
 		const {imgIndex, prevImgIndex, isFocus, isStop, isLoadImage} = this.state;
-		const color = Theme.getColors();
 		const styles = Theme.createStyles(Styles);
+		const color = Theme.getColors();
 
 		const {items = {}} = params[key];
 		const prevItem = items[prevImgIndex] || {};
@@ -271,14 +275,9 @@ export default class StoryBlock extends Component {
 				<View style={styles.content} pointerEvents="auto">
 					{item.urlDetailInfo && (
 						<View pointerEvents="auto">
-							<Button
-								grad
-								onAction={() => {
-									Links.onLinking(item.urlDetailInfo);
-								}}
-								style={styles.btnSize}>
+							<Button grad onAction={this.handleOpenInfo(item)} style={styles.btnSize}>
 								<View style={styles.infoBtn}>
-									<Text i18n style={{color: 'white'}}>
+									<Text i18n style={{color: color.WHITE}}>
 										Подробнее
 									</Text>
 								</View>

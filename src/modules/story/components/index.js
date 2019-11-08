@@ -38,7 +38,6 @@ class Screen extends React.PureComponent<Props> {
 	render() {
 		const {styles, story, storyId, onLoadNext} = this.props;
 
-		console.log('storyId', storyId);
 		return (
 			<View style={styles.mainContainer}>
 				<Animated.View

@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import {createAppContainer, createMaterialTopTabNavigator} from 'react-navigation';
 import StoryBlock from './StoryBlock';
 import {Utils} from '../../../Utils';
-import {Log} from '../../../Log';
+import {View} from '../../View';
+import {ActivityIndicator} from '../../ActivityIndicator';
+import {Theme} from '../../../Theme';
+import Styles from './styles';
 
 const {listScreen} = Utils;
 
@@ -17,23 +20,25 @@ class Story extends Component {
 		const {items, storyInitKey} = this.props;
 		const initialRouteName = storyInitKey || Object.keys(items || {})[0];
 
-		try {
-			this.TabStory = createAppContainer(
-				createMaterialTopTabNavigator(
-					{...listScreen(items, StoryBlock)},
-					{
-						initialRouteName,
-						tabBarComponent: () => null,
-						animationEnabled: true,
-						swipeEnabled: true,
-						lazy: false,
-					},
-				),
-			);
-			this.forceUpdate();
-		} catch (err) {
-			console.log('Ошибка при открытии сторис', err);
-		}
+		setTimeout(() => {
+			try {
+				this.TabStory = createAppContainer(
+					createMaterialTopTabNavigator(
+						{...listScreen(items, StoryBlock)},
+						{
+							initialRouteName,
+							tabBarComponent: () => null,
+							animationEnabled: true,
+							swipeEnabled: true,
+							lazy: false,
+						},
+					),
+				);
+				this.forceUpdate();
+			} catch (err) {
+				console.log('Ошибка при открытии сторис', err);
+			}
+		}, 400);
 	}
 
 	onNavigationStateChange = (prevState, {index, routes}) => {
@@ -46,6 +51,8 @@ class Story extends Component {
 	render() {
 		// Log('!LibStory', this.props);
 		const {items, onOpenStories, onClose} = this.props;
+		const styles = Theme.createStyles(Styles);
+		const color = Theme.getColors();
 
 		const itemsKey = Object.keys(items || {});
 
@@ -62,7 +69,11 @@ class Story extends Component {
 				/>
 			);
 		}
-		return null;
+		return (
+			<View style={styles.errorView}>
+				<ActivityIndicator animating size={40} color={color.WHITE} />
+			</View>
+		);
 	}
 }
 
